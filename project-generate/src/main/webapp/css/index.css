@@ -1,0 +1,53 @@
+﻿* {
+	word-wrap: break-word;
+}
+
+html {
+	overflow: hidden;
+}
+
+body {
+	margin: 0;
+}
+
+label {
+	display:inline-block;
+	height:40px;
+	font-size:30px;
+	color:#0fa6e2;
+	vertical-align:middle;
+	width:240px;
+	text-align:right;
+}
+
+input[type="text"] {
+	width: 300px;
+	height:30px;
+	vertical-align:middle;
+}
+
+input[type="button"]{
+	width: 200px;
+	height: 40px;
+	display: inline-block;
+	top:9px;
+	cursor: pointer;
+	margin-left: 100px;
+	font-size:20px;
+}
+
+div div {
+	margin:30px 15px 15px 50px;
+}
+
+.outsideDiv {
+	height:400px;
+	border-color:#000000;
+	border:1px solid;
+	margin:200px 300px 0px 300px;
+}
+
+.labelLeft{
+    margin-left: 30px;
+}
+

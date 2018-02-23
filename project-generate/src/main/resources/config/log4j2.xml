@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出 -->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数 -->
+<configuration status="WARN" name="{artifactname}" monitorInterval="30">
+		<Properties>
+		<!--
+                %d{yyyy-MM-dd HH:mm:ss, SSS} : 日志生产时间
+                %p : 日志输出格式
+                %c : logger的名称
+                %m : 日志内容，即 logger.info("message")
+                %n : 换行符
+                %C : Java类名
+                %L : 日志输出所在行数
+                %M : 日志输出所在方法名
+                hostName : 本地机器名
+                hostAddress : 本地ip地址
+             -->
+	        <Property name="LOG_PATH">/var/logs/{artifactname}</Property>     
+			<Property name="CONSOLE_PATTERN">[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} method:%l%n%m%n</Property>
+			<Property name="FILE_PATTERN">%-d{yyyy-MM-dd HH:mm:ss}[ %t:%r ] - [ %p ]%m%n</Property>
+			<Property name="ROLLING_FILE_PATTERN">${FILE_PATTERN}</Property>
+			<!-- WARN-打印执行时间超过1秒的SQL,  INFO-打印所有SQL -->
+			<Property name="SQL_LEVEL">WARN</Property>
+		</Properties>
+	<!--先定义所有的appender -->
+	<Appenders>
+	
+		<!--这个输出控制台的配置 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<!--输出日志的格式 -->
+			<PatternLayout pattern="${CONSOLE_PATTERN}" />
+		</Console>
+		<!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，这个也挺有用的，适合临时测试用 -->
+<!-- 		<File name="File" fileName="${LOG_PATH}/log.log" append="false"> -->
+<!-- 			<PatternLayout pattern="${FILE_PATTERN}" /> -->
+<!-- 		</File> -->
+		<!-- 这个会打印出所有的info及以上级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
+		<RollingFile name="RollingFileInfo" fileName="${LOG_PATH}/info.log"
+			filePattern="${LOG_PATH}/$${date:yyyy-MM}/info.log-%d{yyyy-MM-dd}-%i">
+			<!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+			<ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="${ROLLING_FILE_PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="300 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+		<RollingFile name="RollingFileWarn" fileName="${LOG_PATH}/warn.log"
+			filePattern="${LOG_PATH}/$${date:yyyy-MM}/warn.log-%d{yyyy-MM-dd}-%i">
+			<ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY" />
+			<PatternLayout pattern="${ROLLING_FILE_PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="300 MB" />
+			</Policies>
+			<!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+	</Appenders>
+	<!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
+	<loggers>
+		<!-- 记录 SQL 以及耗时信息 -->
+		<logger name="jdbc.sqltiming" level="${SQL_LEVEL}"></logger>
+		<!-- 显示数据grid -->
+		<logger name="jdbc.resultsettable" level="OFF"></logger>
+		<!-- 仅记录 SQL -->
+	 	<logger name="jdbc.sqlonly" level="OFF"></logger>
+	 	<!-- 记录除了 ResultSet 之外的所有 JDBC 调用信息，会产生大量的记录，有利于调试跟踪具体的 JDBC 问题 -->
+	 	<logger name="jdbc.audit" level="OFF"></logger>
+	 	<!-- 会产生更多的记录信息，因为记录了 ResultSet 的信息 -->
+	 	<logger name="jdbc.resultset" level="OFF"></logger>
+	 	<!-- 记录连接打开、关闭等信息，有利于调试数据库连接相关问题 -->
+	 	<logger name="jdbc.connection" level="FATAL"></logger>
+ 	
+		<!-- 精简日志输出 -->
+		<logger name="org.springframework" level="WARN" />
+		<logger name="org.redisson" level="WARN" />
+		<logger name="org.apache.zookeeper" level="WARN" />
+		<logger name="com.zaxxer" level="WARN" />
+		<logger name="log4jdbc.debug" level="WARN" />
+		<logger name="org.mybatis.spring" level="WARN" />
+		<logger name="com.alibaba.dubbo" level="WARN" />
+		<logger name="org.hibernate.validator" level="WARN" />
+		<logger name="org.jboss.logging" level="WARN" />
+		<logger name="io.netty.util" level="WARN" />
+		<logger name="java.util.logging" level="WARN" />
+		<logger name="org.I0Itec.zkclient" level="WARN" />
+		<logger name="org.apache.ibatis.logging" level="WARN" />
+		<logger name="org.springframework.boot.SpringApplication" level="INFO" />
+		<logger name="org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer" level="INFO" />
+		<root level="INFO">
+			<appender-ref ref="Console" />
+			<appender-ref ref="RollingFileInfo" />
+			<appender-ref ref="RollingFileWarn" />
+<!-- 			<appender-ref ref="RollingFileError" /> -->
+<!-- 			<appender-ref ref="File" /> -->
+		</root>
+	</loggers>
+</configuration>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../css/index.css">
+    <title>项目生成界面</title>
+	<script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+	<script src="../js/index.js" type="text/javascript"></script>
+	<script src="../js/common.js" type="text/javascript"></script>
+</head>
+<body>
+   <div class="outsideDiv">
+		<div>
+			<label>groupid:</label>
+			<input type="text" placeholder="例如:com.ueb.listing" id="groupid" name="groupid" >
+			<label class="labelLeft">artifactid:</label>
+			<input type="text" placeholder="例如:ueb-listing" id="artifactid" name="artifactid" >
+		</div>
+		<div>
+			<label>pkg:</label>
+			<input type="text" placeholder="例如:com.ueb.listing" id="pkg" name="pkg" >
+			<label class="labelLeft">port:</label>
+			<input type="text" placeholder="例如:8902" id="port" name="port" >
+		</div>
+		<div>
+			<label>dubboport:</label>
+			<input type="text" placeholder="例如:22902" id="dubboport" name="dubboport" >
+			<label class="labelLeft">restport:</label>
+			<input type="text" placeholder="例如:9302" id="restport" name="restport" >
+		</div>
+		<div>
+			<label>prjectid:</label>
+			<input type="text" placeholder="例如:0000" id="prjectid" name="prjectid" >
+			<input id="btn" type="button" value="生成项目">
+		</div>
+		<a id="url" href="" style="display:none;"></a>
+   </div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../css/login.css">
+    <title>登录界面</title>
+	<script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+	<script src="../js/login.js" type="text/javascript"></script>
+	<script src="../js/common.js" type="text/javascript"></script>
+</head>
+<body>
+    <!-- 代码 开始 -->
+    <div id="_login_div_quick_" style="margin-top: 250px;">
+        <div class="login_no_qlogin" id="login">
+            <div id="header" class="header">
+                <div class="logo"></div>
+                <div class="switch" id="switch">
+                    <a class="switch_btn_focus" id="switch_login" href="javascript:void(0);" tabindex="8">帐号登录</a>
+                </div>
+            </div>
+            <div class="web_qr_login" id="web_qr_login">
+                <div class="web_qr_login_show" id="web_qr_login_show">
+                    <div class="web_login" id="web_login">
+                        <div class="tips" id="tips">
+                            <div class="error_tips" id="error_tips">
+                                <span class="error_logo" id="error_logo"></span>
+                                <span class="err_m" id="err_m"></span>
+                            </div>
+                            <div class="loading_tips" id="loading_tips">
+                                <span id="loading_wording">登录中</span>
+                                <img src="../img/load.gif" alt="加载中..." />
+                            </div>
+                        </div>
+                        <div class="login_form">
+                            <form id="loginform" name="loginform" action="#" method="post" target="_self">
+                                <div class="uinArea" id="uinArea">
+                                    <label class="input_tips" id="uin_tips" for="u">账号</label>
+                                    <div class="inputOuter">
+                                        <input type="text" class="inputstyle" id="u" name="u" value="" tabindex="1" />
+                                        <a class="uin_del" id="uin_del" href="javascript:void(0);"></a>
+                                    </div>
+                                    <ul class="email_list" id="email_list"></ul>
+                                </div>
+                                <div class="pwdArea" id="pwdArea">
+                                    <label class="input_tips" id="pwd_tips" for="p">密码</label>
+                                    <div class="inputOuter">
+                                        <input type="password" class="inputstyle password" id="p" name="p" value="" maxlength="16" tabindex="2" />
+                                    </div>
+                                    <div class="lock_tips" id="caps_lock_tips">
+                                        <span class="lock_tips_row"></span>
+                                        <span>大写锁定已打开
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="submit">
+                                    <a class="login_button" href="javascript:void(0);">
+                                        <input type="button" tabindex="6" value="登 录" class="btn" id="login_button" />
+                                    </a>
+                                </div>
+                                <div id="loginTips" style="color:red;display:none;">
+                                    <span>温馨提示：账号或密码错误！</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

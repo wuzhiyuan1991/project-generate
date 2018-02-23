@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 接口
+	<dubbo:reference id="demoService" interface="com.ueb.api.IDemoService" timeout="10000" retries="0" check="false">
+		<dubbo:method name="methodA" actives="3" timeout="300000" ></dubbo:method>
+		<dubbo:method name="methodB" actives="3" timeout="300000" ></dubbo:method>
+	</dubbo:reference> -->
+	
+	<!-- 接口
+	<dubbo:reference id="testService" interface="com.ueb.api.ITestService" timeout="3000" retries="0" actives="1" /> -->
+	
+</beans>
